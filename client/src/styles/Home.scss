@@ -1,0 +1,232 @@
+@import 'App';
+@import 'fonts';
+@import 'colors';
+
+.main {
+	width: $maxWidth;
+	margin: 0 auto;
+	background-color: $whiteColor;
+}
+.main__menu {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	padding: 5px 0;
+	min-height: 110px;
+}
+.main__menu__buttons {
+	display: flex;
+	flex-wrap: wrap;
+	flex: 0 1 800px;
+	padding: 5px 0;
+	button {
+		padding: 14px 30px;
+		border-radius: 30px;
+		border: none;
+		font-weight: 700;
+		letter-spacing: 0.24px;
+		&:not(:last-child) {
+			margin: 0px 9px 0px 0px;
+		}
+	}
+	.active {
+		background-color: $orangeColor;
+		color: $whiteColor;
+	}
+}
+.main__menu__sort {
+	width: 275px;
+	position: relative;
+	display: flex;
+	font-weight: 700;
+	align-items: center;
+	svg {
+		margin-right: 5px;
+	}
+	p {
+		display: block;
+		margin-right: 8px;
+	}
+	span {
+		cursor: pointer;
+		color: $orangeColor;
+		font-weight: 400;
+		border-bottom: 1px dashed $orangeColor;
+	}
+	ul {
+		position: absolute;
+		left: 130px;
+		top: 30px;
+		display: flex;
+		flex-direction: column;
+		font-weight: 400;
+		border-radius: 5px;
+		padding: 20px 14px;
+		width: 145px;
+		height: 136px;
+		box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+		background-color: $whiteColor;
+		transition: 2s;
+		li {
+			margin-bottom: 20px;
+			cursor: pointer;
+		}
+	}
+}
+
+.main__content__body {
+	display: flex;
+	flex-direction: column;
+	h1 {
+		font-weight: 700;
+		font-size: 32px;
+		line-height: 39px;
+		letter-spacing: 0.01em;
+	}
+}
+
+.main__content__items {
+	display: flex;
+	flex-wrap: wrap;
+	padding: 35px 0px;
+}
+.pizza-card {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	width: 280px;
+	// height: 470px;
+	margin: 0px 13px 35px 13px;
+	img {
+		width: 260px;
+		height: 260px;
+		margin-bottom: 9px;
+	}
+	h3 {
+		font-weight: 800;
+		font-size: 20px;
+		line-height: 24px;
+		letter-spacing: 0.01em;
+		margin-bottom: 7px;
+	}
+}
+.pizza-card__description {
+	width: 100%;
+	height: 100%;
+	font-weight: 400;
+}
+.pizza-card__selector {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	width: 100%;
+	height: 85px;
+	background-color: #f3f3f3;
+	margin-bottom: 17px;
+	border-radius: 5px;
+
+	ul {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+
+		li {
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			cursor: pointer;
+			height: 32px;
+			font-weight: 700;
+			font-size: 14px;
+			line-height: 17px;
+			border-radius: 5px;
+			letter-spacing: 0.015em;
+			margin: 3px 3px;
+			border: 1px solid $whiteColor;
+			background-color: #f3f3f3;
+			color: #2c2c2c;
+			border-radius: 5px;
+			box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.04);
+		}
+	}
+	.up-row {
+		li {
+			width: 132px;
+		}
+		.active {
+			background-color: $whiteColor;
+		}
+		.inactive {
+			cursor: initial;
+			background-color: #f3f3f3;
+			color: #7b7b7b;
+			box-shadow: none;
+			border: none;
+		}
+	}
+	.down-row {
+		li {
+			width: 86px;
+		}
+		.active {
+			background-color: $whiteColor;
+		}
+		.inactive {
+			cursor: initial;
+			background-color: #f3f3f3;
+			color: #7b7b7b;
+			box-shadow: none;
+			border: none;
+		}
+	}
+}
+
+.pizza-card__footer {
+	width: 100%;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	.price {
+		font-size: 22px;
+		font-weight: 700;
+	}
+	button {
+		display: flex;
+		justify-content: space-evenly;
+		align-items: center;
+		width: 155px;
+		height: 40px;
+		font-weight: 700;
+		border-radius: 30px;
+		color: $orangeColor;
+		border: 1px solid $orangeColor;
+		background-color: $whiteColor;
+		transition: background-color 0.3s ease, color 0.3s ease;
+		svg {
+			fill: $orangeColor;
+			transition: fill 0.3s ease, color 0.3s ease;
+		}
+		span {
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			width: 22px;
+			height: 22px;
+			border-radius: 50%;
+			background-color: $orangeColor;
+			color: $whiteColor;
+			transition: background-color 0.3s ease, color 0.3s ease;
+		}
+	}
+	button:hover {
+		background-color: $orangeColor;
+		color: $whiteColor;
+		svg {
+			fill: $whiteColor;
+		}
+		span {
+			background-color: $whiteColor;
+			color: $orangeColor;
+		}
+	}
+}
