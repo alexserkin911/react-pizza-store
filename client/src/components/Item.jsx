@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import SvgPlus from '../svg/SvgPlus';
 
 export default function Item({
-	id,
 	imageUrl,
 	title,
 	description,
@@ -16,6 +15,7 @@ export default function Item({
 	const [activeSize, setActiveSize] = useState(sizes[0]);
 	const pizzaTypes = ['тонкое', 'традиционное'];
 	const pizzaSizes = [26, 30, 40];
+
 	return (
 		<div className='pizza-card'>
 			<img src={imageUrl} alt='pizza' />

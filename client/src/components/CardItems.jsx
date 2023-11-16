@@ -1,13 +1,30 @@
-import React from 'react';
-import pizzas from '../assets/pizzas.json';
+import React, { useEffect, useState } from 'react';
 import Item from './Item';
+import PizzaSkeleton from './PizzaSkeleton';
 
 export default function CardItems() {
+	const [isLoading, setIsloading] = useState(false);
+	const [pizzas, setPizzas] = useState([]);
+
+	useEffect(() => {
+		setIsloading(true);
+		setTimeout(() => {
+			fetch('http://localhost:3001/')
+				.then((response) => response.json())
+				.then((result) => {
+					setPizzas(result);
+					setIsloading(false);
+				})
+				.catch((error) => console.error('fetch error', error));
+		}, 2000);
+	}, []);
+
+	console.log(pizzas);
 	return (
 		<div className='main__content__items'>
-			{pizzas.map((el) => (
-				<Item key={el.id} {...el} />
-			))}
+			{(isLoading ? [...new Array(7)] : pizzas).map((el, i) =>
+				isLoading ? <PizzaSkeleton key={i} /> : <Item key={el.id} {...el} />,
+			)}
 		</div>
 	);
 }
