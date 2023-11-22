@@ -1,23 +1,16 @@
 @import 'fonts';
 @import 'colors';
+@import 'options';
 
 // шрифт по умолчанию============================
 $fontFamily: 'Proxima Nova';
 $fontSize: 16px;
 $mainColor: $blackColor;
 
-$minWidth: 320px;
-$maxWidth: 1340px;
-$maxWidthContainer: 1255px;
-$md1: $maxWidthContainer + 12px;
-$md2: 991.98px;
-$md3: 767.98px;
-$md4: 479.98px;
-
 @import 'null';
 body {
 	font-family: $fontFamily, sans-serif;
-	font-size: calc(14px + (16 - 14) * ((100vw - 320px) / (1255 - 320)));
+	font-size: calc(14px + (16 - 14) * ((100vw - 320px) / (1370 - 320)));
 	color: $mainColor;
 }
 
@@ -29,41 +22,42 @@ body {
 	flex-direction: column;
 }
 .header {
-	width: $maxWidth;
 	margin: 0 auto;
+	max-width: $maxWidth;
 	background-color: $whiteColor;
-	position: relative;
 }
-.header::after {
-	content: '';
-	position: absolute;
-	left: 15px;
-	right: 15px;
-	border-bottom: solid 2px $orangeColor;
-}
+
 ._container {
 	max-width: $maxWidthContainer;
 	padding: 0 15px;
 	margin: 0 auto;
-	// @media (max-width: $md1) {
-	// 	max-width: 970px;
-	// }
-	// @media (max-width: $md2) {
-	// 	max-width: 750px;
-	// }
-	// @media (max-width: $md3) {
-	// 	max-width: none;
-	// 	padding: 0 10px;
-	// }
+	@media (max-width: $md1) {
+		max-width: 970px;
+	}
+	@media (max-width: $md2) {
+		max-width: 750px;
+	}
+	@media (max-width: $md3) {
+		max-width: 600px;
+	}
+	@media (max-width: $md4) {
+		max-width: 350px;
+	}
 }
 
 .header__body {
+	position: relative;
+	width: 100%;
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
 	padding: 5px 0;
-	min-height: 137px;
-	button {
+	height: 137px;
+	@media (max-width: $md2) {
+		height: 110px;
+	}
+
+	.header__button {
 		display: flex;
 		justify-content: space-evenly;
 		align-items: center;
@@ -83,7 +77,7 @@ body {
 			}
 		}
 	}
-	button::after {
+	.header__button::after {
 		content: '';
 		position: absolute;
 		text-align: center;
@@ -94,11 +88,19 @@ body {
 		background-color: $whiteColor;
 	}
 }
+.header__body::after {
+	content: '';
+	position: absolute;
+	bottom: 0;
+	width: calc(100% + 30px);
+	left: -15px;
+	border-bottom: solid 2px $orangeColor;
+}
 .header__left {
 	display: flex;
 	align-items: center;
 	justify-content: space-between;
-	flex: 0 0 calc(790 / 1225 * 100%);
+	flex: 0 0 calc(790 / 1370 * 100%);
 }
 .header__logo {
 	width: 316px;
@@ -126,6 +128,13 @@ body {
 	width: 400px;
 	display: flex;
 	align-items: center;
+	@media (max-width: $md2) {
+		width: 200px;
+		height: 110px;
+	}
+	@media (max-width: $md3) {
+		display: none;
+	}
 	svg {
 		position: absolute;
 		flex: 0 0 17px;

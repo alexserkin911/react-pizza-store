@@ -8,15 +8,14 @@ export default function CardItems() {
 
 	useEffect(() => {
 		setIsloading(true);
-		setTimeout(() => {
-			fetch('http://localhost:3001/')
-				.then((response) => response.json())
-				.then((result) => {
-					setPizzas(result);
-					setIsloading(false);
-				})
-				.catch((error) => console.error('fetch error', error));
-		}, 2000);
+
+		fetch('http://localhost:3001/')
+			.then((response) => response.json())
+			.then((result) => {
+				setPizzas(result);
+				setIsloading(false);
+			})
+			.catch((error) => console.error('fetch error', error));
 	}, []);
 
 	console.log(pizzas);
