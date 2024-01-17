@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 
-export default function Categories() {
-	const [activeButton, setActiveButton] = useState(0);
+export default function Categories({ categoryId, onClickCategory }) {
 	const categories = [
 		'Все',
 		'Мясные',
@@ -16,8 +15,8 @@ export default function Categories() {
 			{categories.map((el, index) => (
 				<button
 					key={el}
-					className={activeButton === index ? 'active' : ''}
-					onClick={() => setActiveButton(index)}
+					className={categoryId === index ? 'active' : ''}
+					onClick={() => onClickCategory(index)}
 				>
 					{el}
 				</button>

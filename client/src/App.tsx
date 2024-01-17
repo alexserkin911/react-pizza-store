@@ -2,9 +2,9 @@ import React from 'react';
 
 import { Route, Routes } from 'react-router-dom';
 import Header from './components/Header';
-import NotFoundBlock from './components/NotFoundBlock/NotFoundBlock';
 import Cart from './pages/Cart';
 import Home from './pages/Home';
+import NotFound from './pages/NotFound';
 import './styles/App.scss';
 
 function App() {
@@ -14,6 +14,7 @@ function App() {
 			<Routes>
 				<Route path='/' element={<Home />} />
 				<Route path='/cart' element={<Cart />} />
+				<Route path='/emptycart' element={<NotFound />} />
 			</Routes>
 		</div>
 	);

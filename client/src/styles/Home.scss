@@ -3,11 +3,14 @@
 @import 'colors';
 
 .main {
-	width: $maxWidth;
+	max-width: $maxWidth;
+	padding: 0 15px;
 	margin: 0 auto;
-	background-color: $whiteColor;
+	background: #ffdf8c;
+	// background-color: $whiteColor;
 }
 .main__menu {
+	width: 100%;
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
@@ -20,9 +23,14 @@
 }
 .main__menu__buttons {
 	display: flex;
-	flex-wrap: wrap;
 	flex: 0 1 calc(800 / 1370 * 100%);
 	padding: 5px 0;
+	@media (max-width: $md3) {
+		flex: none;
+		width: 100%;
+		overflow-x: auto;
+		scroll-snap-type: x mandatory;
+	}
 
 	button {
 		padding: 14px 30px;
@@ -32,6 +40,13 @@
 		letter-spacing: 0.24px;
 		@media (max-width: $md2) {
 			padding: 12px 25px;
+		}
+		@media (max-width: $md3) {
+			padding: 11px 18px;
+			scroll-snap-align: start;
+			&:not(:last-child) {
+				margin: 0px 5px 0px 0px;
+			}
 		}
 		&:not(:last-child) {
 			margin: 0px 9px 0px 0px;
@@ -83,8 +98,7 @@
 }
 
 .main__content__body {
-	display: flex;
-	flex-direction: column;
+	width: 100%;
 	h1 {
 		font-weight: 700;
 		font-size: 32px;
@@ -95,19 +109,23 @@
 
 .main__content__items {
 	display: grid;
-	grid-template-columns: repeat(4, 1fr);
+	// grid-template-columns: repeat(4, 1fr);
+	grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
 	grid-template-rows: repeat(2, 1fr);
-	grid-column-gap: calc(70 / 1370 * 100%);
-	grid-row-gap: 35px;
+	// grid-column-gap: calc(20 / 1370 * 100%);
+	grid-column-gap: 30px;
+	grid-row-gap: 40px;
+	max-width: 100%;
 	// display: flex;
 	// flex-wrap: wrap;
 	padding: 35px 0px;
-	@media (max-width: $md1) {
-		grid-template-columns: repeat(3, 1fr);
-	}
-	@media (max-width: $md2) {
-		grid-template-columns: repeat(2, 1fr);
-	}
+	// @media (max-width: $md1) {
+	// 	grid-template-columns: repeat(3, 1fr);
+	// 	// grid-column-gap: calc(70 / 970 * 100%);
+	// }
+	// @media (max-width: $md2) {
+	// 	grid-template-columns: repeat(2, 1fr);
+	// }
 	// @media (max-width: $md3) {
 	// 	grid-template-columns: repeat(1, 1fr);
 	// }
@@ -117,14 +135,11 @@
 	justify-content: center;
 }
 .pizza-card {
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-	width: 280px;
-	// height: 470px;
-	// margin: 0px 13px 35px 13px;
+	margin: 0 auto;
+	max-width: 280px;
 	img {
-		width: 260px;
+		display: block;
+		width: 100%;
 		height: 260px;
 		margin-bottom: 9px;
 	}
@@ -137,16 +152,12 @@
 	}
 }
 .pizza-card__description {
-	width: 100%;
-	height: 100%;
+	max-width: 100%;
+	height: 54px;
 	font-weight: 400;
 }
 .pizza-card__selector {
-	display: flex;
-	flex-direction: column;
-	justify-content: center;
-	width: 100%;
-	height: 85px;
+	max-width: 100%;
 	background-color: #f3f3f3;
 	margin-bottom: 17px;
 	border-radius: 5px;
