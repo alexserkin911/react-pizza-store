@@ -22,7 +22,7 @@ router.get('/', async (req, res) => {
     limit = limit || 4;
     let offset = page * limit - limit;
 
-    const pizza = await NewPizza.findAll({
+    const pizza = await NewPizza.findAndCountAll({
       where: whereObj,
       order: [[order, sortBy]],
       offset,

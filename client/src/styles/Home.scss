@@ -4,7 +4,7 @@
 
 .main {
 	max-width: $maxWidth;
-	min-height: 100svh;
+	min-height: calc(100vh - 137px);
 	padding: 0 15px;
 	margin: 0 auto;
 	background: #ffdf8c;

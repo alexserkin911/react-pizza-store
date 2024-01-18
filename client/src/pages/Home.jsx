@@ -13,6 +13,7 @@ export default function Home({ searchValue }) {
 		name: 'популярности(DESC)',
 		sortProperty: 'rating',
 	});
+	const [item, setItem] = useState(0);
 	console.log(sortType);
 	console.log(pizzas);
 
@@ -28,7 +29,8 @@ export default function Home({ searchValue }) {
 		)
 			.then((response) => response.json())
 			.then((result) => {
-				setPizzas(result);
+				setPizzas(result.rows);
+				setItem(result.count);
 				setIsloading(false);
 			})
 			.catch((error) => console.error('fetch error', error));
