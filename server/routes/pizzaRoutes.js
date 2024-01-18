@@ -1,31 +1,34 @@
 const router = require('express').Router();
-const { Pizza, Size, Type, NewPizza } = require('../db/models');
-
-// router.get('/', async (req, res) => {
-//   try {
-//     const pizzas = await Pizza.findAll({ include: [Size, Type] });
-//     res.json(pizzas);
-//     console.log(pizzas);
-//   } catch (error) {
-//     console.error(error);
-//     res.status(500).json({ error: 'Internal server error' });
-//   }
-// });
+const { Op } = require('sequelize');
+const { NewPizza } = require('../db/models');
 
 router.get('/', async (req, res) => {
   try {
+    let { category, search, sortBy, order, page, limit } = req.query;
+
+    console.log(req.query);
     let whereObj = {};
-    if (req.query.category) {
-      whereObj.category = req.query.category;
+    if (category) {
+      whereObj.category = category;
     }
 
-    const { sortBy } = req.query;
-    const sortProperty = req.query.order;
+    if (search) {
+      whereObj = {
+        ...whereObj,
+        [Op.or]: [{ title: { [Op.iLike]: `%${search}%` } }],
+      };
+    }
+    page = page || 1;
+    limit = limit || 4;
+    let offset = page * limit - limit;
 
     const pizza = await NewPizza.findAll({
       where: whereObj,
-      order: [[sortProperty, sortBy]],
+      order: [[order, sortBy]],
+      offset,
+      limit,
     });
+    console.log(pizza);
     res.json(pizza);
   } catch (error) {
     console.error('er get pizza', error);

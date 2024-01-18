@@ -4,9 +4,11 @@
 
 .main {
 	max-width: $maxWidth;
+	min-height: 100svh;
 	padding: 0 15px;
 	margin: 0 auto;
 	background: #ffdf8c;
+
 	// background-color: $whiteColor;
 }
 .main__menu {
@@ -109,26 +111,11 @@
 
 .main__content__items {
 	display: grid;
-	// grid-template-columns: repeat(4, 1fr);
 	grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-	grid-template-rows: repeat(2, 1fr);
-	// grid-column-gap: calc(20 / 1370 * 100%);
 	grid-column-gap: 30px;
-	grid-row-gap: 40px;
+	grid-row-gap: 60px;
 	max-width: 100%;
-	// display: flex;
-	// flex-wrap: wrap;
 	padding: 35px 0px;
-	// @media (max-width: $md1) {
-	// 	grid-template-columns: repeat(3, 1fr);
-	// 	// grid-column-gap: calc(70 / 970 * 100%);
-	// }
-	// @media (max-width: $md2) {
-	// 	grid-template-columns: repeat(2, 1fr);
-	// }
-	// @media (max-width: $md3) {
-	// 	grid-template-columns: repeat(1, 1fr);
-	// }
 }
 .pizza__card__body {
 	display: flex;

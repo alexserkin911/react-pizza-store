@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import CardItems from '../components/CardItems';
 import Categories from '../components/Categories';
+import Pagination from '../components/Pagination/Pagination';
 import Sort from '../components/Sort';
 import '../styles/Home.scss';
 
-export default function Home() {
+export default function Home({ searchValue }) {
 	const [isLoading, setIsloading] = useState(false);
 	const [pizzas, setPizzas] = useState([]);
 	const [categoryId, setCategoryId] = useState(0);
@@ -13,14 +14,18 @@ export default function Home() {
 		sortProperty: 'rating',
 	});
 	console.log(sortType);
+	console.log(pizzas);
 
 	useEffect(() => {
 		setIsloading(true);
 		const category = categoryId > 0 ? `category=${categoryId}` : '';
 		const sortBy = sortType.sortProperty.includes('-') ? 'asc' : 'desc';
 		const order = sortType.sortProperty.replace('-', '');
+		const search = searchValue ? `&search=${searchValue}` : '';
 
-		fetch(`http://localhost:3001/?${category}&sortBy=${sortBy}&order=${order}`)
+		fetch(
+			`http://localhost:3001/?${category}&sortBy=${sortBy}&order=${order}${search}&page=1&limit=4`,
+		)
 			.then((response) => response.json())
 			.then((result) => {
 				setPizzas(result);
@@ -28,7 +33,7 @@ export default function Home() {
 			})
 			.catch((error) => console.error('fetch error', error));
 		window.scrollTo(0, 0);
-	}, [categoryId, sortType]);
+	}, [categoryId, sortType, searchValue]);
 
 	return (
 		<div className='main'>
@@ -43,9 +48,14 @@ export default function Home() {
 				<div className='main__content'>
 					<div className='main__content__body'>
 						<h1>Все пиццы</h1>
-						<CardItems isLoading={isLoading} pizzas={pizzas} />
+						<CardItems
+							isLoading={isLoading}
+							pizzas={pizzas}
+							searchValue={searchValue}
+						/>
 					</div>
 				</div>
+				<Pagination />
 			</div>
 		</div>
 	);

@@ -1,9 +1,9 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import SvgShoppingCart from '../svg/SvgShoppingCart';
-import Svgsearch from '../svg/Svgsearch';
+import Search from './Search/Search';
 
-export default function Header() {
+export default function Header({ searchValue, setSearchValue }) {
 	return (
 		<header className='header'>
 			<div className='header__container _container'>
@@ -16,10 +16,7 @@ export default function Header() {
 								<p>самая вкусная пицца во вселенной</p>
 							</div>
 						</Link>
-						<div className='header__search'>
-							<Svgsearch />
-							<input type='text' placeholder='Поиск...' />
-						</div>
+						<Search searchValue={searchValue} setSearchValue={setSearchValue} />
 					</div>
 					<Link to='/cart' className='header__button'>
 						<p>520 P</p>
