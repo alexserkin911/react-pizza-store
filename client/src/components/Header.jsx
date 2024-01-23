@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import SvgShoppingCart from '../svg/SvgShoppingCart';
 import Search from './Search/Search';
 
-export default function Header({ searchValue, setSearchValue }) {
+export default function Header() {
 	return (
 		<header className='header'>
 			<div className='header__container _container'>
@@ -16,7 +16,7 @@ export default function Header({ searchValue, setSearchValue }) {
 								<p>самая вкусная пицца во вселенной</p>
 							</div>
 						</Link>
-						<Search searchValue={searchValue} setSearchValue={setSearchValue} />
+						<Search />
 					</div>
 					<Link to='/cart' className='header__button'>
 						<p>520 P</p>

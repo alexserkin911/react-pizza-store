@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 
 import { ReactComponent as SvgRemove } from '../../assets/svg/btn-remove.svg';
 import { ReactComponent as SvgSearch } from '../../assets/svg/search.svg';

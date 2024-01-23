@@ -12,7 +12,7 @@ function App() {
 
 	return (
 		<div className='wrapper'>
-			<Header searchValue={searchValue} setSearchValue={setSearchValue} />
+			<Header />
 			<Routes>
 				<Route path='/' element={<Home searchValue={searchValue} />} />
 				<Route path='/cart' element={<Cart />} />

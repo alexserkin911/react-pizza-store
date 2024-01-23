@@ -6,29 +6,27 @@ router.get('/', async (req, res) => {
   try {
     let { category, search, sortBy, order, page, limit } = req.query;
 
-    console.log(req.query);
-    let whereObj = {};
+    const categoryObj = {};
     if (category) {
-      whereObj.category = category;
+      categoryObj.category = category;
     }
 
+    const searchObj = {};
     if (search) {
-      whereObj = {
-        ...whereObj,
-        [Op.or]: [{ title: { [Op.iLike]: `%${search}%` } }],
+      searchObj.title = {
+        [Op.iLike]: `%${search}%`,
       };
     }
-    page = page || 1;
-    limit = limit || 4;
-    let offset = page * limit - limit;
+
+    limit = Number(limit);
+    const offset = (page - 1) * limit;
 
     const pizza = await NewPizza.findAndCountAll({
-      where: whereObj,
+      where: { ...categoryObj, ...searchObj },
       order: [[order, sortBy]],
       offset,
       limit,
     });
-    console.log(pizza);
     res.json(pizza);
   } catch (error) {
     console.error('er get pizza', error);
