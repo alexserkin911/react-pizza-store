@@ -1,73 +1,100 @@
-import React, { useEffect, useState } from 'react';
+import qs from 'qs';
+import React, { useEffect, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 import CardItems from '../components/CardItems';
 import Categories from '../components/Categories';
 import Pagination from '../components/Pagination/Pagination';
-import Sort from '../components/Sort';
-import { setCategoryId } from '../redux/slices/filterSlice.js';
+import Sort, { sortPopup } from '../components/Sort';
+import { setFilters } from '../redux/slices/filterSlice.js';
+
+import { fetchPizzas } from '../redux/slices/pizzaSlice';
 import '../styles/Home.scss';
 
-export default function Home({ searchValue }) {
-	const categoryId = useSelector((state) => state.filter.categoryId);
+export default function Home() {
+	const navigate = useNavigate();
 	const dispatch = useDispatch();
+	// первый рендер страницы
+	const isSearch = useRef(false);
+	//первый рендер не сделан
+	const isMounted = useRef(false);
 
-	const [isLoading, setIsloading] = useState(false);
-	const [pizzas, setPizzas] = useState([]);
-	const [sortType, setSortType] = useState({
-		name: 'популярности(DEwSC)',
-		sortProperty: 'rating',
-	});
-	const [item, setItem] = useState(0);
-	const [currentPage, setCurrentPage] = useState(1);
-	const [pageCount, setPageCount] = useState(1);
+	const { categoryId, sortType, currentPage, pageCount } = useSelector(
+		(state) => state.filter,
+	);
+	const { searchValue } = useSelector((state) => state.search);
 
-	console.log(currentPage, searchValue);
+	const { items, status } = useSelector((state) => state.pizza);
+
+	// если изменили параметры и был первый рендер
 	useEffect(() => {
-		setIsloading(true);
-		const category = categoryId > 0 ? `category=${categoryId}` : '';
-		const sortBy = sortType.sortProperty.includes('-') ? 'asc' : 'desc';
-		const order = sortType.sortProperty.replace('-', '');
-		const search = searchValue ? `&search=${searchValue}` : '';
+		// первый рендер не сделан не нужно вшивать параметры в адресную строку
+		if (isMounted.current) {
+			const queryString = qs.stringify({
+				sortBy: sortType.sortProperty,
+				categoryId,
+				currentPage,
+				pageCount,
+			});
+			navigate(`?${queryString}`);
+		}
+		isMounted.current = true;
+	}, [categoryId, sortType.sortProperty, currentPage, navigate, pageCount]);
 
-		fetch(
-			`http://localhost:3001/?${category}&sortBy=${sortBy}&order=${order}${search}&page=${currentPage}&limit=${4}`,
-		)
-			.then((response) => response.json())
-			.then((result) => {
-				setPizzas(result.rows);
-				setItem(result.count);
-				setPageCount(Math.ceil(result.count / 4));
-				setIsloading(false);
-			})
-			.catch((error) => console.error('fetch error', error));
+	// если был первый рендер то проверяем параметры URL и сохраняем в redux
+	useEffect(() => {
+		if (window.location.search) {
+			const params = qs.parse(window.location.search.substring(1));
+			const sortType = sortPopup.find(
+				(el) => el.sortProperty === params.sortBy,
+			);
+			dispatch(setFilters({ ...params, sortType }));
+			isSearch.current = true;
+		}
+	}, [dispatch]);
+
+	// Если был первый рендер то запрашиваем пиццы
+	useEffect(() => {
+		const getPizzas = async () => {
+			const category = categoryId > 0 ? `category=${categoryId}` : '';
+			const sortBy = sortType.sortProperty.replace('-', '');
+			const orderBy = sortType.sortProperty.includes('-') ? 'asc' : 'desc';
+			const search = searchValue ? `&search=${searchValue}` : '';
+
+			dispatch(fetchPizzas({ category, sortBy, orderBy, search, currentPage }));
+		};
 		window.scrollTo(0, 0);
-	}, [categoryId, sortType, searchValue, currentPage]);
+
+		if (!isSearch.current) {
+			getPizzas();
+		}
+		isSearch.current = false;
+	}, [categoryId, sortType.sortProperty, currentPage, dispatch, searchValue]);
 
 	return (
 		<div className='main'>
 			<div className='maim__container _container'>
 				<div className='main__menu'>
-					<Categories
-						categoryId={categoryId}
-						onClickCategory={(i) => dispatch(setCategoryId(i))}
-					/>
-					<Sort sortType={sortType} setSortType={setSortType} />
+					<Categories />
+					<Sort />
 				</div>
 				<div className='main__content'>
 					<div className='main__content__body'>
 						<h1>Все пиццы</h1>
-						<CardItems
-							isLoading={isLoading}
-							pizzas={pizzas}
-							searchValue={searchValue}
-						/>
+						{status === 'failed' ? (
+							<div className='main__content__body__failed'>
+								<h1>Произошла ошибка 😕</h1>
+								<p>
+									К сожалению, не удалось получить пиццы. <br />
+									Попробуйте повторить позже.
+								</p>
+							</div>
+						) : (
+							<CardItems pizzas={items} />
+						)}
 					</div>
 				</div>
-				<Pagination
-					pageCount={pageCount}
-					currentPage={currentPage}
-					setCurrentPage={setCurrentPage}
-				/>
+				<Pagination />
 			</div>
 		</div>
 	);

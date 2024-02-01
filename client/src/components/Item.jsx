@@ -1,7 +1,10 @@
 import React, { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { addItem } from '../redux/slices/cartSlice';
 import SvgPlus from '../svg/SvgPlus';
 
 export default function Item({
+	id,
 	imageUrl,
 	title,
 	description,
@@ -11,10 +14,28 @@ export default function Item({
 	category,
 	rating,
 }) {
+	const dispatch = useDispatch();
+	const cartItem = useSelector((state) =>
+		state.cart.items.find((obj) => obj.id === id),
+	);
 	const [activeType, setActiveType] = useState(types[0]);
 	const [activeSize, setActiveSize] = useState(sizes[0]);
 	const pizzaTypes = ['тонкое', 'традиционное'];
 	const pizzaSizes = [26, 30, 40];
+
+	const addedCount = cartItem ? cartItem.count : 0;
+
+	const onClickAddItem = () => {
+		const item = {
+			id,
+			title,
+			price,
+			imageUrl,
+			type: pizzaTypes[activeType],
+			size: activeSize,
+		};
+		dispatch(addItem(item));
+	};
 
 	return (
 		<div className='pizza__card__body'>
@@ -52,10 +73,10 @@ export default function Item({
 				</div>
 				<div className='pizza-card__footer'>
 					<div className='price'>от {price} ₽</div>
-					<button>
+					<button onClick={onClickAddItem}>
 						<SvgPlus />
 						<p>Добавить</p>
-						<span>3</span>
+						{addedCount > 0 && <span>{addedCount}</span>}
 					</button>
 				</div>
 			</div>

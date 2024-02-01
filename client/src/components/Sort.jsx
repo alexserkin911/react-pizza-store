@@ -1,18 +1,40 @@
-import React, { useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { setSortType } from '../redux/slices/filterSlice.js';
 import Svgarrowup from '../svg/Svgarrowup';
 
-export default function Sort({ sortType, setSortType }) {
+export const sortPopup = [
+	{ name: 'популярности(DESC)', sortProperty: 'rating' },
+	{ name: 'популярности(ASC)', sortProperty: '-rating' },
+	{ name: 'цене(DESC)', sortProperty: 'price' },
+	{ name: 'цене(ASC)', sortProperty: '-price' },
+	{ name: 'алфавиту(DESC)', sortProperty: 'title' },
+	{ name: 'алфавиту(ASC)', sortProperty: '-title' },
+];
+
+export default function Sort() {
+	const { sortType } = useSelector((state) => state.filter);
+	const dispatch = useDispatch();
+
+	const sortRef = useRef();
+
 	const [openPopup, setOpenPopup] = useState(false);
-	const sortPopup = [
-		{ name: 'популярности(DESC)', sortProperty: 'rating' },
-		{ name: 'популярности(ASC)', sortProperty: '-rating' },
-		{ name: 'цене(DESC)', sortProperty: 'price' },
-		{ name: 'цене(ASC)', sortProperty: '-price' },
-		{ name: 'алфавиту(DESC)', sortProperty: 'title' },
-		{ name: 'алфавиту(ASC)', sortProperty: '-title' },
-	];
+
+	useEffect(() => {
+		const handleClickOutside = (event) => {
+			if (!sortRef.current.contains(event.target)) {
+				setOpenPopup(false);
+			}
+		};
+		document.body.addEventListener('click', handleClickOutside);
+
+		return () => {
+			document.body.removeEventListener('click', handleClickOutside);
+		};
+	}, []);
+
 	return (
-		<div className='main__menu__sort'>
+		<div ref={sortRef} className='main__menu__sort'>
 			<Svgarrowup />
 			<p>Сортировка по:</p>
 			<span onClick={() => setOpenPopup(!openPopup)}>{sortType.name}</span>
@@ -21,7 +43,7 @@ export default function Sort({ sortType, setSortType }) {
 					{sortPopup.map((el, i) => (
 						<li
 							onClick={() => {
-								setSortType(el);
+								dispatch(setSortType(el));
 								setOpenPopup(!openPopup);
 							}}
 							key={i}

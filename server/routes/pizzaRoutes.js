@@ -4,8 +4,8 @@ const { NewPizza } = require('../db/models');
 
 router.get('/', async (req, res) => {
   try {
-    let { category, search, sortBy, order, page, limit } = req.query;
-
+    let { category, search, sortBy, orderBy, page, limit } = req.query;
+    console.log(req.query);
     const categoryObj = {};
     if (category) {
       categoryObj.category = category;
@@ -20,10 +20,11 @@ router.get('/', async (req, res) => {
 
     limit = Number(limit);
     const offset = (page - 1) * limit;
+    console.log(offset);
 
     const pizza = await NewPizza.findAndCountAll({
       where: { ...categoryObj, ...searchObj },
-      order: [[order, sortBy]],
+      order: [[sortBy, orderBy]],
       offset,
       limit,
     });
