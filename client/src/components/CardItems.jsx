@@ -1,10 +1,11 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
+import { pizzaSelector } from '../redux/slices/pizzaSlice';
 import Item from './Item';
 import PizzaSkeleton from './PizzaSkeleton';
 
 export default function CardItems({ pizzas }) {
-	const { status } = useSelector((state) => state.pizza);
+	const { status } = useSelector(pizzaSelector);
 
 	const isLoading = status === 'loading';
 	return (

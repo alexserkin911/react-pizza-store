@@ -4,11 +4,14 @@ import debounce from 'lodash.debounce';
 import { useDispatch, useSelector } from 'react-redux';
 import { ReactComponent as SvgRemove } from '../../assets/svg/btn-remove.svg';
 import { ReactComponent as SvgSearch } from '../../assets/svg/search.svg';
-import { setSearchValue } from '../../redux/slices/searchSlice.js';
+import {
+	searchSelector,
+	setSearchValue,
+} from '../../redux/slices/searchSlice.js';
 import style from './search.module.scss';
 
 export default function Search() {
-	const searchValue = useSelector((state) => state.search.searchValue);
+	const { searchValue } = useSelector(searchSelector);
 	const dispatch = useDispatch();
 	const inputRef = useRef();
 

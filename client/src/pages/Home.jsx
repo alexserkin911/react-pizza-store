@@ -6,9 +6,10 @@ import CardItems from '../components/CardItems';
 import Categories from '../components/Categories';
 import Pagination from '../components/Pagination/Pagination';
 import Sort, { sortPopup } from '../components/Sort';
-import { setFilters } from '../redux/slices/filterSlice.js';
+import { filterSelector, setFilters } from '../redux/slices/filterSlice.js';
 
-import { fetchPizzas } from '../redux/slices/pizzaSlice';
+import { fetchPizzas, pizzaSelector } from '../redux/slices/pizzaSlice';
+import { searchSelector } from '../redux/slices/searchSlice';
 import '../styles/Home.scss';
 
 export default function Home() {
@@ -19,12 +20,10 @@ export default function Home() {
 	//первый рендер не сделан
 	const isMounted = useRef(false);
 
-	const { categoryId, sortType, currentPage, pageCount } = useSelector(
-		(state) => state.filter,
-	);
-	const { searchValue } = useSelector((state) => state.search);
-
-	const { items, status } = useSelector((state) => state.pizza);
+	const { categoryId, sortType, currentPage, pageCount } =
+		useSelector(filterSelector);
+	const { items, status } = useSelector(pizzaSelector);
+	const { searchValue } = useSelector(searchSelector);
 
 	// если изменили параметры и был первый рендер
 	useEffect(() => {

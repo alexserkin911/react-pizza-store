@@ -1,11 +1,12 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
+import { cartSelector } from '../redux/slices/cartSlice';
 import SvgShoppingCart from '../svg/SvgShoppingCart';
 import Search from './Search/Search';
 
 export default function Header() {
-	const { totalPrice, items } = useSelector((state) => state.cart);
+	const { totalPrice, items } = useSelector(cartSelector);
 
 	const totalCount = items.reduce((sum, obj) => sum + obj.count, 0);
 

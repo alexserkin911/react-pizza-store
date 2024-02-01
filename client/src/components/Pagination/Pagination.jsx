@@ -3,11 +3,15 @@ import ReactPaginate from 'react-paginate';
 import { useDispatch, useSelector } from 'react-redux';
 import style from './pagination.module.scss';
 
-import { setCurrentPage } from '../../redux/slices/filterSlice.js';
+import {
+	filterSelector,
+	setCurrentPage,
+} from '../../redux/slices/filterSlice.js';
+import { pizzaSelector } from '../../redux/slices/pizzaSlice';
 
 export default function Pagination() {
-	const { currentPage } = useSelector((state) => state.filter);
-	const { totalPages } = useSelector((state) => state.pizza);
+	const { currentPage } = useSelector(filterSelector);
+	const { totalPages } = useSelector(pizzaSelector);
 	const dispatch = useDispatch();
 
 	return (

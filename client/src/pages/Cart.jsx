@@ -6,13 +6,11 @@ import { ReactComponent as ShoppingCartSvg } from '../assets/svg/shopping-cart.s
 import { CartItem } from '../components/CartItem/CartItem';
 
 import NotFoundBlock from '../components/NotFoundBlock/NotFoundBlock';
-import { clearItems } from '../redux/slices/cartSlice';
+import { cartSelector, clearItems } from '../redux/slices/cartSlice';
 import '../styles/Cart.scss';
 
 export default function Cart() {
-	// const [cartItem, setCartItem] = useState();
-
-	const { totalPrice, items } = useSelector((state) => state.cart);
+	const { totalPrice, items } = useSelector(cartSelector);
 	const dispatch = useDispatch();
 
 	const totalCount = items.reduce((sum, obj) => sum + obj.count, 0);
