@@ -134,3 +134,15 @@ body {
 		}
 	}
 }
+.full__pizza {
+	&__body {
+		width: 500px;
+		height: calc(100svh - 137px);
+		margin: 0 auto;
+		padding-top: 100px;
+		text-align: center;
+		img {
+			width: 100%;
+		}
+	}
+}
