@@ -4,7 +4,7 @@
 	min-height: calc(100vh - 137px);
 	div {
 		margin: 0 auto;
-		width: 547px;
+		max-width: 547px;
 		height: 523px;
 		text-align: center;
 		background-color: white;
@@ -22,23 +22,11 @@
 		}
 		img {
 			margin-top: 47px;
-			width: 350px;
+			max-width: 350px;
 			height: 255px;
 		}
 		a {
-			display: inline-block;
-			text-align: center;
-			width: 210px;
-			height: 46px;
-			border-radius: 30px;
-			background-color: black;
 			margin-top: 74px;
-			line-height: 46px;
-			span {
-				font-weight: 700;
-				letter-spacing: 0.24px;
-				color: white;
-			}
 		}
 	}
 }

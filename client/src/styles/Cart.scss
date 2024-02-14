@@ -14,7 +14,7 @@
 	margin: 0 auto;
 	padding: 40px 0;
 	max-width: 820px;
-	min-height: calc(100vh - 137px);
+	min-height: calc(100svh - 137px);
 }
 .cart__header {
 	display: flex;
@@ -26,7 +26,7 @@
 		display: flex;
 		align-items: center;
 		justify-content: center;
-		color: black;
+		color: $blackColor;
 		font-size: 32px;
 		font-weight: 700;
 		letter-spacing: 0.32px;
@@ -35,7 +35,7 @@
 			height: 29px;
 			margin-right: 7px;
 			fill: none;
-			stroke: black;
+			stroke: $blackColor;
 		}
 	}
 	button {
@@ -43,7 +43,7 @@
 		align-items: center;
 		justify-content: center;
 		color: #7b7b7b;
-		background-color: white;
+		background-color: $whiteColor;
 		font-size: 16px;
 		font-weight: 400;
 		svg {
@@ -59,12 +59,6 @@
 		color: $blackColor;
 		stroke: $blackColor;
 	}
-}
-
-.cart__content {
-}
-
-.cart__footer {
 }
 
 .cart__content__body {
@@ -105,18 +99,35 @@
 	div {
 		display: flex;
 		align-items: center;
-		svg {
-			cursor: pointer;
-		}
-		svg:hover {
-			circle {
-				stroke: $orangeColor;
-				fill: #fe5f1e;
-				transition: fill 0.3s ease;
+		button {
+			width: 32px;
+			height: 32px;
+			border-radius: 50%;
+			svg {
+				cursor: pointer;
 			}
-			path {
-				fill: $whiteColor;
-				transition: fill 0.3s ease;
+			svg:hover {
+				circle {
+					stroke: $orangeColor;
+					fill: $orangeColor;
+					transition: fill 0.3s ease;
+				}
+				path {
+					fill: $whiteColor;
+					transition: fill 0.3s ease;
+				}
+			}
+		}
+		button:disabled {
+			opacity: 0.4;
+			svg {
+				circle {
+					stroke: #7b7b7b;
+					fill: $whiteColor;
+				}
+				path {
+					fill: #7b7b7b;
+				}
 			}
 		}
 		span {
@@ -136,8 +147,8 @@
 	}
 	svg:hover {
 		circle {
-			stroke: black;
-			fill: black;
+			stroke: $blackColor;
+			fill: $blackColor;
 			transition: fill 0.3s ease, stroke 0.3s ease;
 		}
 		path {
@@ -204,7 +215,6 @@
 
 		p {
 			color: #8d8d8d;
-			font-size: 16px;
 			font-weight: 400;
 			letter-spacing: 0.18px;
 		}
@@ -227,34 +237,20 @@
 	height: 120px;
 	justify-content: space-between;
 	align-items: center;
-	a {
-		display: flex;
-		justify-content: center;
-		align-items: center;
-		width: 211px;
-		height: 55px;
-		border-radius: 30px;
-		border: 1px solid #d3d3d3;
-		background-color: $whiteColor;
-		color: #cacaca;
-		font-size: 16px;
-		font-weight: 400;
-		span {
-			margin: 0 0 0 7px;
-		}
-	}
-	a:hover {
-		background-color: $blackColor;
-		transition: background-color 0.3s ease;
-		color: $whiteColor;
-	}
 	button {
 		width: 211px;
 		height: 55px;
 		border-radius: 30px;
+		transition: transform 0.3s ease, box-shadow 0.3s ease;
 		background-color: $orangeColor;
 		color: $whiteColor;
 		font-size: 16px;
 		font-weight: 700;
+		letter-spacing: 0.5px;
+	}
+	button:hover {
+		transition: transform 0.3s ease, box-shadow 0.3s ease;
+		transform: translateY(-5px);
+		box-shadow: 0 5px 0 $orangeColor;
 	}
 }
