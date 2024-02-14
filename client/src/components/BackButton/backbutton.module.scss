@@ -1,0 +1,48 @@
+@import '../../styles/colors.scss';
+@import '../../styles/options.scss';
+
+.root {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	width: 211px;
+	height: 50px;
+	border-radius: 30px;
+	border: 1px solid $darkgrayColor;
+	transition: background-color 0.5s ease, color 0.5s ease;
+	background-color: $whiteColor;
+	color: $darkgrayColor;
+	font-weight: 400;
+	span {
+		margin: 0 0 0 7px;
+	}
+}
+.root:hover {
+	transition: background-color 0.5s ease, color 0.5s ease;
+	background-color: $blackColor;
+	color: $whiteColor;
+}
+
+// @media (max-width: $md3) {
+// 	flex: none;
+// 	width: 150px;
+// 	height: 40px;
+// }
+// @media (max-width: $md4) {
+// 	width: 100%;
+// 	height: 30px;
+// }
+
+@media (max-width: $md3) {
+	.root {
+		width: 150px;
+		height: 45px;
+	}
+}
+
+@media (max-width: $md4) {
+	.root {
+		width: 140px;
+		height: 30px;
+	}
+}
